@@ -73,7 +73,7 @@ public boolean goUp() {
 	if (y==0) {
 		movido=false;
 	}else {
-		x--;
+		y--;
 	}
 	return movido;
 }

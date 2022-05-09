@@ -2,6 +2,8 @@ package elementos;
 
 import java.util.Random;
 
+import logicaJuego.Constantes;
+
 public class Jugador extends Element {
 	private int dinero;
 	private int pociones;
@@ -15,7 +17,8 @@ public class Jugador extends Element {
 		this.gemas = 0;
 		this.pociones = 0;
 	}
-
+	//Saco el random fuera porque si creo muchos me dice el sonarlint que cree uno fuera
+	//y con ese que los haga todos los del azar
 	Random r = new Random();
 
 	public String getNombre() {
@@ -105,30 +108,32 @@ public class Jugador extends Element {
 	}
 
 	public int lucha(Jugador contrario) {
-		int resultado = 100000;
-		if (this.getFuerzaParaLuchar()== contrario.getFuerzaParaLuchar()) {
-			resultado=0;
-		}else if (this.getFuerzaParaLuchar()>contrario.getFuerzaParaLuchar()) {
+		int fuerzaJugador=this.getFuerzaParaLuchar();
+		int fuerzaContrario=contrario.getFuerzaParaLuchar();
+		int resultado ;
+		if (fuerzaJugador== fuerzaContrario){
+			resultado=Constantes.EMPATE;
+		}else if (fuerzaJugador>fuerzaContrario) {
 			if (contrario.getPociones()>0) {
 				contrario.pociones--;
-				resultado=1;
+				resultado=Constantes.GANA_USA_POCIMA;
 			}else if (contrario.getDinero()>0) {
 				this.dinero+=contrario.dinero;
 				contrario.dinero=0;
-				resultado=2;
+				resultado=Constantes.GANA_DINERO;
 			}else {
-				resultado=3;
-				contrario=null;
+				resultado=Constantes.GANA_MUERE;
 			}
 		}else {
 			if (pociones>0) {
 				pociones--;
+				resultado=Constantes.PIERDE_USA_POCIMA;
 			}else if (dinero>0) {
 				contrario.dinero+=this.getDinero();
 				this.dinero=0;
-				resultado=5;
+				resultado=Constantes.PIERDE_DINERO;
 			}else {
-				resultado=6;
+				resultado=Constantes.PIERDE_MUERE;
 			}
 		}
 		return resultado;

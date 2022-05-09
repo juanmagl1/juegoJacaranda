@@ -48,8 +48,8 @@ class CoordenadaTest {
 	}
 	@Test
 	public void goRightMalo() {
-		Coordenada c1=new Coordenada(9,0);
-		assertFalse(c1.goRight());
+		Coordenada c8=new Coordenada(9,0);
+		assertFalse(c8.goRight());
 	}
 	@Test
 	public void goLeftBueno() {
