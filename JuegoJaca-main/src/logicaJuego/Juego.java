@@ -14,6 +14,67 @@ public class Juego {
 	private int dado; // Dado para ver los movimientos del jugador que juega
 
 
+	public Juego(PlayerType[] personaje) {
+		super();
+		
+	}
+private void crearTablero() {
+	crearDinero();
+	crearGemas();
+	crearPociones();
+	crearRocas();
+}
+private boolean crearJugador(PlayerType tipo) {
+	boolean creado=false;
+	Jugador j=new Jugador(tipo);
+	Coordenada c=new Coordenada();
+	//Compruebo si esta la coordenada ocupada, sino creo una coordenada nueva
+	while (coordenadaJugadores.contains(c)) {
+		c=new Coordenada();
+	}
+	coordenadaJugadores.add(c);
+	tablero.put(c, j);
+	creado=true;
+	return creado;
+}
+private void crearRocas() {
+	for (int i=0;i<Constantes.NUM_ROCAS;i++) {
+		Coordenada c=new Coordenada();
+		while (coordenadaJugadores.contains(c)) {
+			c=new Coordenada();
+		}
+		Element e=new Element(ElementType.ROCA);
+		this.tablero.put(c, e);
+	}
+}
+private void crearGemas() {
+	for (int i=0;i<Constantes.NUM_GEMAS;i++) {
+		Coordenada c=new Coordenada();
+		while (this.coordenadaJugadores.contains(c)) {
+			c=new Coordenada();
+		}
+		Element e=new Element(ElementType.GEMA);
+		this.tablero.put(c, e);
+	}
+}
+private void crearPociones() {
+	Coordenada c=new Coordenada();
+	while (this.coordenadaJugadores.contains(c)) {
+		c=new Coordenada();
+	}
+	Element e=new Element(ElementType.POCION);
+	this.tablero.put(c, e);
+}
+
+private void crearDinero() {
+	Coordenada c=new Coordenada();
+	while (this.coordenadaJugadores.contains(c)) {
+		c=new Coordenada();
+	}
+	Element e=new Element(ElementType.DINERO);
+	this.tablero.put(c, e);
+}
+
 	/**
 	 * Escribe el tablero en formato no gráfico. Devuelve el string con la
 	 * información
