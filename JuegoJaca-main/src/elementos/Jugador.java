@@ -17,8 +17,10 @@ public class Jugador extends Element {
 		this.gemas = 0;
 		this.pociones = 0;
 	}
-	//Saco el random fuera porque si creo muchos me dice el sonarlint que cree uno fuera
-	//y con ese que los haga todos los del azar
+
+	// Saco el random fuera porque si creo muchos me dice el sonarlint que cree uno
+	// fuera
+	// y con ese que los haga todos los del azar
 	Random r = new Random();
 
 	public String getNombre() {
@@ -108,35 +110,49 @@ public class Jugador extends Element {
 	}
 
 	public int lucha(Jugador contrario) {
-		int fuerzaJugador=this.getFuerzaParaLuchar();
-		int fuerzaContrario=contrario.getFuerzaParaLuchar();
-		int resultado ;
-		if (fuerzaJugador== fuerzaContrario){
-			resultado=Constantes.EMPATE;
-		}else if (fuerzaJugador>fuerzaContrario) {
-			if (contrario.getPociones()>0) {
+		int fuerzaJugador = this.getFuerzaParaLuchar();
+		int fuerzaContrario = contrario.getFuerzaParaLuchar();
+		int resultado;
+		if (fuerzaJugador == fuerzaContrario) {
+			resultado = Constantes.EMPATE;
+		} else if (fuerzaJugador > fuerzaContrario) {
+			if (contrario.getPociones() > 0) {
 				contrario.pociones--;
-				resultado=Constantes.GANA_USA_POCIMA;
-			}else if (contrario.getDinero()>0) {
-				this.dinero+=contrario.dinero;
-				contrario.dinero=0;
-				resultado=Constantes.GANA_DINERO;
-			}else {
-				resultado=Constantes.GANA_MUERE;
+				resultado = Constantes.GANA_USA_POCIMA;
+			} else if (contrario.getDinero() > 0) {
+				this.dinero += contrario.dinero;
+				contrario.dinero = 0;
+				resultado = Constantes.GANA_DINERO;
+			} else {
+				resultado = Constantes.GANA_MUERE;
 			}
-		}else {
-			if (pociones>0) {
+		} else {
+			if (pociones > 0) {
 				pociones--;
-				resultado=Constantes.PIERDE_USA_POCIMA;
-			}else if (dinero>0) {
-				contrario.dinero+=this.getDinero();
-				this.dinero=0;
-				resultado=Constantes.PIERDE_DINERO;
-			}else {
-				resultado=Constantes.PIERDE_MUERE;
+				resultado = Constantes.PIERDE_USA_POCIMA;
+			} else if (dinero > 0) {
+				contrario.dinero += this.getDinero();
+				this.dinero = 0;
+				resultado = Constantes.PIERDE_DINERO;
+			} else {
+				resultado = Constantes.PIERDE_MUERE;
 			}
 		}
 		return resultado;
 	}
-	
+	public int encuentraRoca() {
+		int resultado;
+		if (this.gemas>0) {
+			resultado=Constantes.ROMPE_ROCA_CON_GEMA;
+			this.gemas--;
+		}else {
+			if (this.getMagia()>4) {
+				resultado=Constantes.GANA_A_LA_ROCA;
+			}else {
+				resultado=Constantes.PIERDE_A_LA_ROCA;
+			}
+		}
+		return resultado;
+	}
+
 }
