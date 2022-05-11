@@ -16,7 +16,9 @@ public class Juego {
 
 	public Juego(PlayerType[] personaje) {
 		super();
-		
+		tablero= new HashMap<>();
+		coordenadaJugadores=new ArrayList<>();
+		crearTablero();
 	}
 private void crearTablero() {
 	crearDinero();
@@ -38,41 +40,66 @@ private boolean crearJugador(PlayerType tipo) {
 	return creado;
 }
 private void crearRocas() {
-	for (int i=0;i<Constantes.NUM_ROCAS;i++) {
+	int i=0;
+	while(i<Constantes.NUM_ROCAS) {
 		Coordenada c=new Coordenada();
-		while (coordenadaJugadores.contains(c)) {
-			c=new Coordenada();
-		}
 		Element e=new Element(ElementType.ROCA);
-		this.tablero.put(c, e);
+		//Si el get de la coordenada es null lo que hago es añadirla, sino no aumento 
+		//el contador
+		if (tablero.get(c)==null) {
+			this.tablero.put(c, e);
+			i++;
+		}
+		
+		
 	}
 }
 private void crearGemas() {
-	for (int i=0;i<Constantes.NUM_GEMAS;i++) {
+	int i=0;
+	while(i<Constantes.NUM_GEMAS) {
 		Coordenada c=new Coordenada();
-		while (this.coordenadaJugadores.contains(c)) {
-			c=new Coordenada();
-		}
 		Element e=new Element(ElementType.GEMA);
-		this.tablero.put(c, e);
+		//Si el get de la coordenada es null lo que hago es añadirla, sino no aumento 
+		//el contador
+		if (tablero.get(c)==null) {
+			this.tablero.put(c, e);
+			i++;
+		}
+		
+		
 	}
 }
 private void crearPociones() {
-	Coordenada c=new Coordenada();
-	while (this.coordenadaJugadores.contains(c)) {
-		c=new Coordenada();
+	int i=0;
+	while(i<Constantes.NUM_POCIONES) {
+		Coordenada c=new Coordenada();
+		Element e=new Element(ElementType.POCION);
+		//Si el get de la coordenada es null lo que hago es añadirla, sino no aumento 
+		//el contador
+		if (tablero.get(c)==null) {
+			this.tablero.put(c, e);
+			i++;
+		}
+		
+		
 	}
-	Element e=new Element(ElementType.POCION);
-	this.tablero.put(c, e);
 }
 
 private void crearDinero() {
-	Coordenada c=new Coordenada();
-	while (this.coordenadaJugadores.contains(c)) {
-		c=new Coordenada();
+	int i=0;
+	while(i<Constantes.NUM_DINERO) {
+		Coordenada c=new Coordenada();
+		Element e=new Element(ElementType.DINERO);
+		//Si el get de la coordenada es null lo que hago es añadirla, sino no aumento 
+		//el contador
+		if (tablero.get(c)==null) {
+			this.tablero.put(c, e);
+			i++;
+		}
+		
+		
 	}
-	Element e=new Element(ElementType.DINERO);
-	this.tablero.put(c, e);
+
 }
 
 	/**

@@ -17,7 +17,13 @@ public class mainJuegoGUI {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			
+			PlayerType[] jugador=new PlayerType[4];
+			jugador[0]=PlayerType.ELFO;
+			jugador[1]=PlayerType.GUERRERO;
+			jugador[2]=PlayerType.MAGO;
+			jugador[3]=PlayerType.OGRO;
+			Juego j1=new Juego(jugador);
+			System.out.println(j1.toString());
 				
 			ArrayList<PlayerType> jugadores = new ArrayList<>();
 			jugadores.add(PlayerType.ELFO);
