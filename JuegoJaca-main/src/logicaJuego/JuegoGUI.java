@@ -86,7 +86,7 @@ public class JuegoGUI extends Juego implements ActionListener {
 		// en el dado.
 
 		JOptionPane.showMessageDialog(ventana,
-				"Le toca al jugador " + super.getNombreJuegadorQueJuega() + ". El dado saca " + super.getValorDado() + " movimientos");
+				"Le toca al jugador " + super.getNombreJugadorQueJuega() + ". El dado saca " + super.getValorDado() + " movimientos");
 	}
 
 	// Devuelve el icono correspondiente según el elemento
@@ -139,7 +139,7 @@ public class JuegoGUI extends Juego implements ActionListener {
 	 */
 	public void setInformacion() {
 
-		this.informacion.setText("<html>" + super.imprimeValoreJugadores().replaceAll("\n", "<br>") + "<br>"
+		this.informacion.setText("<html>" + super.imprimeValoresJugadores().replaceAll("\n", "<br>") + "<br>"
 				+ super.imprimeNombreJugadores().replaceAll("\n", "<br><br>") + "</html>");
 	}
 
@@ -219,7 +219,7 @@ public class JuegoGUI extends Juego implements ActionListener {
 			super.proximoJugador();
 			super.setDado();
 			setInformacion();
-			JOptionPane.showMessageDialog(ventana, "Le toca al jugador " + super.getNombreJuegadorQueJuega()
+			JOptionPane.showMessageDialog(ventana, "Le toca al jugador " + super.getNombreJugadorQueJuega()
 					+ ". El dado saca " + super.getValorDado() + " movimientos");
 
 		}

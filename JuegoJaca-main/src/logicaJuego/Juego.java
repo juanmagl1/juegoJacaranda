@@ -13,94 +13,236 @@ public class Juego {
 	private int jugadorJuega;
 	private int dado; // Dado para ver los movimientos del jugador que juega
 
-
 	public Juego(PlayerType[] personaje) {
 		super();
-		tablero= new HashMap<>();
-		coordenadaJugadores=new ArrayList<>();
+		tablero = new HashMap<>();
+		coordenadaJugadores = new ArrayList<>();
 		crearTablero();
-	}
-private void crearTablero() {
-	crearDinero();
-	crearGemas();
-	crearPociones();
-	crearRocas();
-}
-private boolean crearJugador(PlayerType tipo) {
-	boolean creado=false;
-	Jugador j=new Jugador(tipo);
-	Coordenada c=new Coordenada();
-	//Compruebo si esta la coordenada ocupada, sino creo una coordenada nueva
-	while (coordenadaJugadores.contains(c)) {
-		c=new Coordenada();
-	}
-	coordenadaJugadores.add(c);
-	tablero.put(c, j);
-	creado=true;
-	return creado;
-}
-private void crearRocas() {
-	int i=0;
-	while(i<Constantes.NUM_ROCAS) {
-		Coordenada c=new Coordenada();
-		Element e=new Element(ElementType.ROCA);
-		//Si el get de la coordenada es null lo que hago es añadirla, sino no aumento 
-		//el contador
-		if (tablero.get(c)==null) {
-			this.tablero.put(c, e);
-			i++;
+		for (int i = 0; i < Constantes.NUM_JUGADORES; i++) {
+			crearJugador(personaje[i]);
 		}
-		
-		
-	}
-}
-private void crearGemas() {
-	int i=0;
-	while(i<Constantes.NUM_GEMAS) {
-		Coordenada c=new Coordenada();
-		Element e=new Element(ElementType.GEMA);
-		//Si el get de la coordenada es null lo que hago es añadirla, sino no aumento 
-		//el contador
-		if (tablero.get(c)==null) {
-			this.tablero.put(c, e);
-			i++;
-		}
-		
-		
-	}
-}
-private void crearPociones() {
-	int i=0;
-	while(i<Constantes.NUM_POCIONES) {
-		Coordenada c=new Coordenada();
-		Element e=new Element(ElementType.POCION);
-		//Si el get de la coordenada es null lo que hago es añadirla, sino no aumento 
-		//el contador
-		if (tablero.get(c)==null) {
-			this.tablero.put(c, e);
-			i++;
-		}
-		
-		
-	}
-}
-
-private void crearDinero() {
-	int i=0;
-	while(i<Constantes.NUM_DINERO) {
-		Coordenada c=new Coordenada();
-		Element e=new Element(ElementType.DINERO);
-		//Si el get de la coordenada es null lo que hago es añadirla, sino no aumento 
-		//el contador
-		if (tablero.get(c)==null) {
-			this.tablero.put(c, e);
-			i++;
-		}
-		
-		
 	}
 
-}
+	private void crearTablero() {
+		crearDinero();
+		crearGemas();
+		crearPociones();
+		crearRocas();
+	}
+
+	private boolean crearJugador(PlayerType tipo) {
+		boolean creado = false;
+		Jugador j = new Jugador(tipo);
+		Coordenada c = new Coordenada();
+		// Compruebo si esta la coordenada ocupada, sino creo una coordenada nueva
+		while (coordenadaJugadores.contains(c)) {
+			c = new Coordenada();
+		}
+		coordenadaJugadores.add(c);
+		tablero.put(c, j);
+		creado = true;
+		return creado;
+	}
+
+	private void crearRocas() {
+		int i = 0;
+		while (i < Constantes.NUM_ROCAS) {
+			Coordenada c = new Coordenada();
+			Element e = new Element(ElementType.ROCA);
+			// Si el get de la coordenada es null lo que hago es añadirla, sino no aumento
+			// el contador
+			if (tablero.get(c) == null) {
+				this.tablero.put(c, e);
+				i++;
+			}
+
+		}
+	}
+
+	private void crearGemas() {
+		int i = 0;
+		while (i < Constantes.NUM_GEMAS) {
+			Coordenada c = new Coordenada();
+			Element e = new Element(ElementType.GEMA);
+			// Si el get de la coordenada es null lo que hago es añadirla, sino no aumento
+			// el contador
+			if (tablero.get(c) == null) {
+				this.tablero.put(c, e);
+				i++;
+			}
+
+		}
+	}
+
+	private void crearPociones() {
+		int i = 0;
+		while (i < Constantes.NUM_POCIONES) {
+			Coordenada c = new Coordenada();
+			Element e = new Element(ElementType.POCION);
+			// Si el get de la coordenada es null lo que hago es añadirla, sino no aumento
+			// el contador
+			if (tablero.get(c) == null) {
+				this.tablero.put(c, e);
+				i++;
+			}
+
+		}
+	}
+
+	public boolean isTerminado() {
+		boolean terminado = false;
+		boolean tieneDinero = false;
+		for (Element e : this.tablero.values()) {
+			if (e instanceof Jugador) {
+				if (((Jugador) e).getDinero() == Constantes.DINERO) {
+					tieneDinero = true;
+				}
+			}
+		}
+		if (this.coordenadaJugadores.size() == 1 || tieneDinero) {
+			terminado = true;
+		}
+		return terminado;
+	}
+
+	private void eliminarJugador(Coordenada coord) {
+		this.coordenadaJugadores.remove(coord);
+		this.tablero.remove(coord);
+	}
+
+	public String imprimeNombreJugadores() {
+		StringBuilder resultado = new StringBuilder();
+		int i = 1;
+		for (Coordenada c : this.coordenadaJugadores) {
+			Jugador j = (Jugador) tablero.get(c);
+			resultado.append("El jugador " + i + " es un " + j.getNombre() + "\n");
+			i++;
+		}
+		return resultado.toString();
+	}
+
+	public String imprimeValoresJugadores() {
+		StringBuilder resultado = new StringBuilder();
+		int i = 1;
+		for (Coordenada c : this.coordenadaJugadores) {
+			Jugador j = (Jugador) tablero.get(c);
+			resultado.append("El personaje " + i + " tiene " + j.getDinero() + "dinero" + j.getGemas() + "gemas"
+					+ j.getPociones() + "\n");
+			i++;
+		}
+		return resultado.toString();
+	}
+
+	private Coordenada getNextPosition(char direction) throws JuegoException {
+		Coordenada c = this.coordenadaJugadores.get(jugadorJuega);
+		if (direction != 'N' || direction != 'S' || direction != 'E' || direction != 'O') {
+			throw new JuegoException("Error, no es una coordenada valida");
+		} else {
+			switch (direction) {
+			case 'N': {
+				c.goUp();
+				break;
+			}
+			case 'S': {
+				c.goDown();
+				break;
+			}
+			case 'E': {
+				c.goRight();
+				break;
+			}
+			case 'O': {
+				c.goLeft();
+				break;
+			}
+			default:
+				throw new IllegalArgumentException("Error");
+			}
+		}
+		return c;
+	}
+
+	private void cambiaJugadorAPosicion(Coordenada coord) {
+		Coordenada c = this.coordenadaJugadores.get(jugadorJuega);
+		Jugador aux = (Jugador) this.tablero.get(c);
+		tablero.put(c, aux);
+		this.coordenadaJugadores.remove(c);
+		this.coordenadaJugadores.add(jugadorJuega, c);
+	}
+
+	public void proximoJugador() {
+		if (this.jugadorJuega == Constantes.NUM_JUGADORES - 1) {
+			this.jugadorJuega = 0;
+		} else {
+			jugadorJuega++;
+		}
+	}
+
+	public String getGanador() {
+		StringBuilder resultado = new StringBuilder();
+		if (this.coordenadaJugadores.size() == 1) {
+			Jugador aux = (Jugador) tablero.get(coordenadaJugadores.get(jugadorJuega));
+			resultado.append(aux.toString());
+		} else {
+			for (Element siguiente : tablero.values()) {
+				if (siguiente instanceof Jugador) {
+					Jugador aux = ((Jugador) siguiente);
+					if (aux.getDinero() == Constantes.NUM_DINERO) {
+						resultado.append(aux);
+					}
+				}
+			}
+		}
+		return resultado.toString();
+	}
+
+	public String getNombreJugadorQueJuega() {
+		StringBuilder resultado = new StringBuilder();
+		Coordenada aux = this.coordenadaJugadores.get(jugadorJuega);
+		Jugador j = (Jugador) this.tablero.get(aux);
+		resultado.append(j.getNombre());
+		return resultado.toString();
+	}
+
+	public int getMovimientoJugador() {
+		Coordenada aux = this.coordenadaJugadores.get(jugadorJuega);
+		Jugador j = (Jugador) this.tablero.get(aux);
+		return j.getFuerzaParaLuchar();
+	}
+	
+	public int getValorDado() {
+		return dado;
+	}
+	public int decrementaDado() {
+		return this.dado--;
+	}
+	public void setDado() {
+		Coordenada aux=this.coordenadaJugadores.get(jugadorJuega);
+		Jugador auxiliar=(Jugador) this.tablero.get(aux);
+		this.dado = auxiliar.getFuerzaParaLuchar();
+	}
+	public Element obtenerElementoTablero(Coordenada coord) {
+		return this.tablero.get(coord);
+	}
+	public Coordenada obtenerCoordenadaJugadorJuega() {
+		return this.coordenadaJugadores.get(jugadorJuega);
+	}
+
+	private void crearDinero() {
+		int i = 0;
+		while (i < Constantes.NUM_DINERO) {
+			Coordenada c = new Coordenada();
+			Element e = new Element(ElementType.DINERO);
+			// Si el get de la coordenada es null lo que hago es añadirla, sino no aumento
+			// el contador
+			if (tablero.get(c) == null) {
+				this.tablero.put(c, e);
+				i++;
+			}
+
+		}
+
+	}
 
 	/**
 	 * Escribe el tablero en formato no grÃ¡fico. Devuelve el string con la
@@ -132,7 +274,6 @@ private void crearDinero() {
 		return resul.toString();
 	}
 
-
 	/**
 	 * Simplemente escribe una barra en pantalla
 	 * 
@@ -147,7 +288,6 @@ private void crearDinero() {
 		resul.append("\n");
 		return resul.toString();
 	}
-
 
 	/**
 	 * Mover el jugador
@@ -243,5 +383,4 @@ private void crearDinero() {
 		return resul;
 	}
 
-	
 }
