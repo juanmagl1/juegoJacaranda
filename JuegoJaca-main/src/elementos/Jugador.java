@@ -56,7 +56,7 @@ public class Jugador extends Element {
 	}
 
 	public void setDinero(int dinero) throws JugadorException {
-		if (dinero < 0) {
+		if (dinero < 0 || dinero> Constantes.NUM_DINERO) {
 			throw new JugadorException("Error, el dinero no puede ser menor de 0");
 		} else {
 			this.dinero = dinero;
@@ -68,7 +68,7 @@ public class Jugador extends Element {
 	}
 
 	public void setPociones(int pociones) throws JugadorException {
-		if (pociones < 0) {
+		if (pociones < 0 || pociones> Constantes.NUM_POCIONES) {
 			throw new JugadorException("Las pociones no pueden ser negativas");
 		} else {
 			this.pociones = pociones;
@@ -80,8 +80,8 @@ public class Jugador extends Element {
 	}
 
 	public void setGemas(int gemas) throws JugadorException {
-		if (gemas < 0) {
-			throw new JugadorException("Las gemas no puedeb ser negativas");
+		if (gemas < 0 || gemas >Constantes.NUM_GEMAS) {
+			throw new JugadorException("Las gemas no puede ser negativas");
 		} else {
 			this.gemas = gemas;
 		}
