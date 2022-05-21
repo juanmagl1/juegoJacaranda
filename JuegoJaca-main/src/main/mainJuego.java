@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import elementos.ElementType;
+import elementos.Jugador;
 import elementos.JugadorException;
 import elementos.PlayerType;
 import logicaJuego.Constantes;
@@ -15,7 +16,7 @@ public class mainJuego {
 
 	public static Scanner teclado = new Scanner(System.in);
 	
-	public static void main(String[] args) throws JugadorException {
+	public static void main(String[] args) throws JugadorException, CloneNotSupportedException {
 		// TODO Auto-generated method stub
 		
 		try {

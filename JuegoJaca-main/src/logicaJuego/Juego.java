@@ -2,7 +2,7 @@ package logicaJuego;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+
 
 import elementos.*;
 
@@ -93,12 +93,10 @@ public class Juego {
 		boolean terminado = false;
 		boolean tieneDinero = false;
 		for (Element e : this.tablero.values()) {
-			if (e instanceof Jugador) {
-				if (((Jugador) e).getDinero() == Constantes.DINERO) {
+			if (e instanceof Jugador && ((Jugador) e).getDinero()==Constantes.DINERO) {
 					tieneDinero = true;
 				}
 			}
-		}
 		if (this.coordenadaJugadores.size() == 1 || tieneDinero) {
 			terminado = true;
 		}
@@ -126,16 +124,15 @@ public class Juego {
 		int i = 1;
 		for (Coordenada c : this.coordenadaJugadores) {
 			Jugador j = (Jugador) tablero.get(c);
-			resultado.append("El personaje " + i + " tiene " + j.getDinero() + "dinero" + j.getGemas() + "gemas"
-					+ j.getPociones() + "\n");
+			resultado.append("El personaje " + i + " tiene " + j.getDinero() + " dinero " + j.getGemas() + " gemas"+ j.getPociones() +" pociones"+ "\n");
 			i++;
 		}
 		return resultado.toString();
 	}
 
-	private Coordenada getNextPosition(char direction) throws JuegoException {
-		Coordenada c = this.coordenadaJugadores.get(jugadorJuega);
-		if (direction != 'N' || direction != 'S' || direction != 'E' || direction != 'O') {
+	private Coordenada getNextPosition(char direction) throws JuegoException, CloneNotSupportedException {
+		Coordenada c = this.coordenadaJugadores.get(jugadorJuega).clone();
+		if (direction != 'N' && direction != 'S' && direction != 'E' && direction != 'O') {
 			throw new JuegoException("Error, no es una coordenada valida");
 		} else {
 			switch (direction) {
@@ -165,9 +162,10 @@ public class Juego {
 	private void cambiaJugadorAPosicion(Coordenada coord) {
 		Coordenada c = this.coordenadaJugadores.get(jugadorJuega);
 		Jugador aux = (Jugador) this.tablero.get(c);
-		tablero.put(c, aux);
-		this.coordenadaJugadores.remove(c);
-		this.coordenadaJugadores.add(jugadorJuega, c);
+		this.tablero.remove(c);
+		tablero.put(coord, aux);
+		this.coordenadaJugadores.remove(jugadorJuega);
+		this.coordenadaJugadores.add(jugadorJuega,coord);
 	}
 
 	public void proximoJugador() {
@@ -296,8 +294,9 @@ public class Juego {
 	 * @return
 	 * @throws JuegoException
 	 * @throws JugadorException
+	 * @throws CloneNotSupportedException 
 	 */
-	public String movePlayer(char direction) throws JuegoException, JugadorException {
+	public String movePlayer(char direction) throws JuegoException, JugadorException, CloneNotSupportedException {
 		// Si no es una dirección válida, mando un exception
 		String resul = "";
 		Jugador jugador = (Jugador) this.tablero.get(this.coordenadaJugadores.get(jugadorJuega));

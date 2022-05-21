@@ -28,11 +28,7 @@ class CoordenadaTest {
 		Coordenada expected=new Coordenada(0,0);
 		assertEquals(expected, c4);
 	}
-	@Test
-	public void coordenadaXIncorrecta() {
-		Coordenada expected=new Coordenada(0,0);
-		assertEquals(expected, c3);
-	}
+
 	@Test 
 	public void goDownMalo() {
 		Coordenada c6=new Coordenada(1,9);

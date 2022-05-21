@@ -87,8 +87,8 @@ public boolean goDown() {
 	return movido;
 }
 @Override
-protected Coordenada clone() throws CloneNotSupportedException {
-	return new Coordenada(this.x,this.y);
+public Coordenada clone() throws CloneNotSupportedException {
+	return (Coordenada) super.clone();
 }
 
 }
