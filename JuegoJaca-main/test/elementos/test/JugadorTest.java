@@ -17,6 +17,7 @@ public class JugadorTest {
 	Jugador j2 = new Jugador(PlayerType.GUERRERO);
 	Jugador j3 = new Jugador(PlayerType.OGRO);
 	Jugador j4 = new Jugador(PlayerType.MAGO);
+	Jugador j5 = j4;
 
 	@Test
 	public void testFuerzaParaLucharElfo() {
@@ -288,9 +289,38 @@ public class JugadorTest {
 
 	@Test
 	public void ganaRocaOPierdeConRoca() {
-			int encuentro = j1.encuentraRoca();
-			//Lo he puesto asi, porque si encuentro es igual a uno u a otro, pues 
-			//la condición es igual de valida
-			assertTrue(encuentro == Constantes.GANA_A_LA_ROCA || encuentro == Constantes.PIERDE_A_LA_ROCA);
+		int encuentro = j1.encuentraRoca();
+		// Lo he puesto asi, porque si encuentro es igual a uno u a otro, pues
+		// la condición es igual de valida
+		assertTrue(encuentro == Constantes.GANA_A_LA_ROCA || encuentro == Constantes.PIERDE_A_LA_ROCA);
+	}
+
+	@Test
+	public void lucha() {
+		for (int i=0;i<10;i++) {
+			int lucha = j4.lucha(j5);
+			assertTrue(lucha == Constantes.EMPATE || lucha == Constantes.GANA_MUERE || lucha==Constantes.PIERDE_MUERE);
 		}
-}
+		
+	}
+	@Test 
+	public void luchaPocion() {
+		for (int i=0;i<10;i++) {
+			j4.encuentraPocion();
+			j3.encuentraPocion();
+			int lucha=j3.lucha(j4);
+			assertTrue(lucha == Constantes.EMPATE || lucha == Constantes.GANA_USA_POCIMA || lucha==Constantes.PIERDE_USA_POCIMA);
+		}
+	}
+	@Test 
+	public void luchaDinero() {
+		for (int i=0;i<10;i++) {
+			j4.encuentraDinero();
+			j3.encuentraDinero();
+			int lucha=j3.lucha(j4);
+			assertTrue(lucha == Constantes.EMPATE || lucha == Constantes.GANA_DINERO || lucha==Constantes.PIERDE_DINERO);
+		}
+	}
+
+	}
+
