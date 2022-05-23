@@ -39,9 +39,10 @@ public class JuegoTest {
 		jugadores[2]=PlayerType.OGRO;
 		jugadores[3]=PlayerType.MAGO;
 		Juego j1 = new Juego(jugadores);
-		j1.setDado();
+		
 	
 		for(int i=0;i<20;i++) {
+			j1.setDado();
 			assertTrue(j1.getValorDado()>0 && j1.getValorDado()<= Constantes.ELFO_VELOCIDAD);
 			
 		}
@@ -222,12 +223,12 @@ public class JuegoTest {
 					jugadores[1]=PlayerType.MAGO;
 					jugadores[2]=PlayerType.OGRO;
 					jugadores[3]=PlayerType.GUERRERO;
-					Juego j = new Juego(jugadores);
-					Coordenada c =j.obtenerCoordenadaJugadorJuega();
+					Juego juego = new Juego(jugadores);
+					
 						
 					try {
 						try {
-							j.movePlayer('*');
+							juego.movePlayer('*');
 							fail("Tendria que saltar una exception");
 						} catch (JugadorException | CloneNotSupportedException e) {
 							// TODO Auto-generated catch block

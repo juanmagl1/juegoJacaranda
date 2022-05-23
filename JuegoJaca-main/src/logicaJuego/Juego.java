@@ -223,9 +223,7 @@ public class Juego {
 	public void setDado() {
 			Coordenada aux = this.coordenadaJugadores.get(jugadorJuega);
 			Jugador auxiliar = (Jugador) this.tablero.get(aux);
-			if (auxiliar.getVelocidadParaLuchar()>=0) {
 				this.dado = auxiliar.getVelocidadParaLuchar();
-			}
 			
 
 	}

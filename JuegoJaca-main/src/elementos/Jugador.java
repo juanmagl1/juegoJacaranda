@@ -32,7 +32,7 @@ public class Jugador extends Element {
 	}
 
 	public int getFuerzaParaLuchar() {
-		return r.nextInt(getFuerza());
+		return r.nextInt(jugadores.getFuerza());
 	}
 
 	private int getMagia() {
@@ -40,7 +40,7 @@ public class Jugador extends Element {
 	}
 
 	public int getMagiaParaLuchar() {
-		return r.nextInt(getMagia());
+		return r.nextInt(jugadores.getMagia());
 	}
 
 	private int getVelocidad() {
@@ -48,7 +48,7 @@ public class Jugador extends Element {
 	}
 
 	public int getVelocidadParaLuchar() {
-		return r.nextInt(getVelocidad());
+		return r.nextInt(jugadores.getVelocidad()-1)+1;
 	}
 
 	public int getDinero() {
