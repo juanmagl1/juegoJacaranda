@@ -63,7 +63,7 @@ public class JugadorTest {
 
 		for (int i = 0; i <= 10; i++) {
 			Jugador j1 = new Jugador(PlayerType.ELFO);
-			assertTrue(j1.getMagiaParaLuchar() >= 0 && j1.getMagiaParaLuchar() <= Constantes.ELFO_VELOCIDAD);
+			assertTrue(j1.getVelocidadParaLuchar() >= 0 && j1.getVelocidadParaLuchar() <= Constantes.ELFO_VELOCIDAD);
 		}
 
 	}
@@ -73,7 +73,7 @@ public class JugadorTest {
 
 		for (int i = 0; i <= 10; i++) {
 			Jugador j1 = new Jugador(PlayerType.OGRO);
-			assertTrue(j1.getMagiaParaLuchar() >= 0 && j1.getMagiaParaLuchar() <= Constantes.OGRO_VELOCIDAD);
+			assertTrue(j1.getVelocidadParaLuchar() >= 0 && j1.getVelocidadParaLuchar() <= Constantes.OGRO_VELOCIDAD);
 		}
 
 	}
@@ -82,7 +82,7 @@ public class JugadorTest {
 	public void testVelocidadParaLucharGuerrero() {
 		for (int i = 0; i < 100; i++) {
 			Jugador j1 = new Jugador(PlayerType.GUERRERO);
-			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.GUERRERO_VELOCIDAD);
+			assertTrue(j1.getVelocidadParaLuchar() >= 0 && j1.getVelocidadParaLuchar() <= Constantes.GUERRERO_VELOCIDAD);
 		}
 
 	}
@@ -91,7 +91,7 @@ public class JugadorTest {
 	public void testVelocidadParaLucharMago() {
 		for (int i = 0; i < 100; i++) {
 			Jugador j1 = new Jugador(PlayerType.MAGO);
-			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.MAGO_VELOCIDAD);
+			assertTrue(j1.getVelocidadParaLuchar() >= 0 && j1.getVelocidadParaLuchar() <= Constantes.MAGO_VELOCIDAD);
 		}
 
 	}
@@ -120,7 +120,7 @@ public class JugadorTest {
 	public void testMagiaParaLucharGuerrero() {
 		for (int i = 0; i < 100; i++) {
 			Jugador j1 = new Jugador(PlayerType.GUERRERO);
-			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.GUERRERO_MAGIA);
+			assertTrue(j1.getMagiaParaLuchar() >= 0 && j1.getMagiaParaLuchar() <= Constantes.GUERRERO_MAGIA);
 		}
 
 	}
@@ -129,7 +129,7 @@ public class JugadorTest {
 	public void testMagiaParaLucharMago() {
 		for (int i = 0; i < 100; i++) {
 			Jugador j1 = new Jugador(PlayerType.MAGO);
-			assertTrue(j1.getFuerzaParaLuchar() >= 0 && j1.getFuerzaParaLuchar() <= Constantes.MAGO_MAGIA);
+			assertTrue(j1.getMagiaParaLuchar() >= 0 && j1.getMagiaParaLuchar() <= Constantes.MAGO_MAGIA);
 		}
 
 	}
