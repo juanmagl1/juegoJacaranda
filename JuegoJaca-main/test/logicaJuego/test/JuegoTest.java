@@ -29,14 +29,15 @@ public class JuegoTest {
 		assertEquals("El jugador 1 es un GUERRERO\n"
 				+ "El jugador 2 es un ELFO\n"
 				+ "El jugador 3 es un OGRO\n"
-				+ "El jugador 4 es un MAGO", j1.imprimeNombreJugadores());
+				+ "El jugador 4 es un MAGO\n", j1.imprimeNombreJugadores());
 	}
 	@Test
 	public void setDado() {
 		PlayerType[]jugadores = new PlayerType[Constantes.NUM_JUGADORES]; 
-		for(int i=0;i<Constantes.NUM_JUGADORES;i++) {
-			jugadores[i]=PlayerType.ELFO;
-		}
+		jugadores[0]=PlayerType.GUERRERO;
+		jugadores[1]=PlayerType.ELFO;
+		jugadores[2]=PlayerType.OGRO;
+		jugadores[3]=PlayerType.MAGO;
 		Juego j1 = new Juego(jugadores);
 		j1.setDado();
 	
@@ -120,11 +121,12 @@ public class JuegoTest {
 			if(c.getY()!=0) {
 				try {
 					j.movePlayer('N');
+					c.goUp();
 				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				c.goUp();
+				
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
 			}
 		}
@@ -147,11 +149,12 @@ public class JuegoTest {
 			if(c.getY()!=9) {
 				try {
 					j.movePlayer('S');
+					c.goDown();
 				} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				c.goDown();
+				
 				assertEquals(c, j.obtenerCoordenadaJugadorJuega());
 			}
 		}
@@ -173,11 +176,12 @@ public class JuegoTest {
 				if(c.getX()!=9) {
 					try {
 						j.movePlayer('E');
+						c.goRight();
 					} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					c.goRight();
+					
 					assertEquals(c, j.obtenerCoordenadaJugadorJuega());
 				}
 			}
@@ -198,11 +202,12 @@ public class JuegoTest {
 				if(c.getX()!=0) {
 					try {
 						j.movePlayer('O');
+						c.goLeft();
 					} catch (JuegoException | JugadorException | CloneNotSupportedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					c.goLeft();
+					
 					assertEquals(c, j.obtenerCoordenadaJugadorJuega());
 				}
 			}
@@ -222,7 +227,7 @@ public class JuegoTest {
 						
 					try {
 						try {
-							j.movePlayer('J');
+							j.movePlayer('*');
 							fail("Tendria que saltar una exception");
 						} catch (JugadorException | CloneNotSupportedException e) {
 							// TODO Auto-generated catch block

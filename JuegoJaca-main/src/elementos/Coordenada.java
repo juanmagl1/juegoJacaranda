@@ -88,8 +88,7 @@ public boolean goDown() {
 }
 @Override
 public Coordenada clone() throws CloneNotSupportedException {
-	Coordenada aux = new Coordenada(this.x, this.y);
-	return aux;
+	return new Coordenada(this.x, this.y);
 }
 
 }

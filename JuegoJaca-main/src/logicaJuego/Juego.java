@@ -174,7 +174,7 @@ public class Juego {
 	}
 
 	public void proximoJugador() {
-		if (this.jugadorJuega == Constantes.NUM_JUGADORES - 1) {
+		if (this.jugadorJuega == this.coordenadaJugadores.size()-1) {
 			this.jugadorJuega = 0;
 		} else {
 			jugadorJuega++;
@@ -188,8 +188,7 @@ public class Juego {
 			resultado.append(aux.toString());
 		} else {
 			for (Element siguiente : tablero.values()) {
-				if (siguiente instanceof Jugador) {
-					Jugador aux = ((Jugador) siguiente);
+				if (siguiente instanceof Jugador aux) {
 					if (aux.getDinero() == Constantes.NUM_DINERO) {
 						resultado.append(aux);
 					}
@@ -224,7 +223,7 @@ public class Juego {
 	public void setDado() {
 			Coordenada aux = this.coordenadaJugadores.get(jugadorJuega);
 			Jugador auxiliar = (Jugador) this.tablero.get(aux);
-			if (auxiliar.getVelocidadParaLuchar()!=0) {
+			if (auxiliar.getVelocidadParaLuchar()>=0) {
 				this.dado = auxiliar.getVelocidadParaLuchar();
 			}
 			
@@ -319,7 +318,7 @@ public class Juego {
 		// Tengo que ver que hay en la nueva casilla
 		Element elemento = this.tablero.get(coordDestino);
 
-		if (elemento != null) { // Hay algo en la casilla
+		if (elemento != null && coordDestino.equals(this.coordenadaJugadores.get(jugadorJuega))) { // Hay algo en la casilla
 			if (elemento instanceof Jugador) {
 
 				Jugador enemigo = (Jugador) elemento;
