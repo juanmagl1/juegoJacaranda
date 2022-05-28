@@ -58,7 +58,7 @@ public class JuegoTest {
 		
 		Juego juego = new Juego(jugadores);
 		juego.proximoJugador();
-		assertEquals("ELFO", juego.getNombreJugadorQueJuega());
+		assertEquals("MAGO", juego.getNombreJugadorQueJuega());
 		
 	}
 	@Test 

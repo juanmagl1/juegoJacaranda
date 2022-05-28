@@ -3,32 +3,39 @@ package logicaJuego;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import elementos.*;
+import elementos.Coordenada;
+import elementos.Element;
+import elementos.ElementType;
+import elementos.Jugador;
+import elementos.JugadorException;
+import elementos.PlayerType;
 
 public class Juego {
 
 	private HashMap<Coordenada, Element> tablero;
 	private ArrayList<Coordenada> coordenadaJugadores;
 	private int jugadorJuega;
-	private int dado; // Dado para ver los movimientos del jugador que juega
+	private int dado;
 
+	/**
+	 * Constructor Que crea un tablero y añade los jugadores en base a la constante, llamando al metodo crearJugadores.
+	 * @param personaje
+	 */
 	public Juego(PlayerType[] personaje) {
 		super();
-		tablero = new HashMap<>();
+		int contador=0;
 		coordenadaJugadores = new ArrayList<>();
+		tablero = new HashMap<>();
 		crearTablero();
-		for (int i = 0; i < personaje.length; i++) {
-			crearJugador(personaje[i]);
+		while(contador<Constantes.NUM_JUGADORES) {
+			if(crearJugador(personaje[contador])) {
+				contador++;
+			}
 		}
+		
 	}
-
-	private void crearTablero() {
-		crearDinero();
-		crearGemas();
-		crearPociones();
-		crearRocas();
-	}
-
+	
+	
 	private boolean crearJugador(PlayerType tipo) {
 		boolean crear = false;
 		Jugador jugador = new Jugador(tipo);
@@ -47,6 +54,14 @@ public class Juego {
 	
 	
 
+	
+	private void crearTablero() {
+		crearDinero();
+		crearGemas();
+		crearPociones();
+		crearRocas();
+	}
+	
 	private void crearRocas() {
 		int contador = 0;
 		while (contador < Constantes.NUM_ROCAS) {
@@ -111,20 +126,19 @@ public class Juego {
 	
 	
 	public boolean isTerminado() {
-		boolean resul = false;
-		boolean tieneMaxDinero = false;
-		for (Element e : tablero.values()) {
-			if (e instanceof Jugador) {
-				if (((Jugador) e).getDinero() == Constantes.DINERO) {
-					tieneMaxDinero = true;
+		boolean terminar = false;
+		boolean dinero = false;
+		for (Element elemento : this.tablero.values()) {
+			if (elemento instanceof Jugador) {
+				if (((Jugador) elemento).getDinero() == Constantes.DINERO) {
+					dinero = true;
 				}
 			}
 		}
-		if (coordenadaJugadores.size() == 1 || tieneMaxDinero) {
-			resul = true;
+	if (this.coordenadaJugadores.size() == 1 || dinero) {
+		terminar = true;
 		}
-
-		return resul;
+		return terminar;
 	}
 	
 	private void eliminarJugador(Coordenada coordenada) {
@@ -132,19 +146,17 @@ public class Juego {
 		this.tablero.remove(coordenada);
 	}
 
-	
+
 	public String imprimeNombreJugadores() {
-		StringBuilder resul = new StringBuilder();
-		int cont = 1;
-		for (Coordenada c : coordenadaJugadores) {
-			// Recorro las coordenadas de jugadores y con esa coordenada
-			// miro en el tablero para sacar el jugador y con el jugador ya
-			// saco su nombre
-			Jugador aux = (Jugador) tablero.get(c);
-			resul.append("El jugador " + cont + " es un " + aux.getPlayer() + "\n");
-			cont++;
+		int contador = 1;
+		StringBuilder sb = new StringBuilder();
+		
+		for (Coordenada coordenada : this.coordenadaJugadores) {
+		Jugador jugadores = (Jugador) tablero.get(coordenada);
+		sb.append("El jugador " + contador + " es un " + jugadores.getPlayer() + "\n");
+			contador++;
 		}
-		return resul.toString();
+		return sb.toString();
 	}
 	
 	
@@ -160,6 +172,7 @@ public class Juego {
 	public void setDado() {
 		this.dado = ((Jugador) tablero.get(coordenadaJugadores.get(jugadorJuega))).getVelocidadParaLuchar();
 	}
+	
 	
 	
 	private void cambiaJugadorAPosicion(Coordenada coordenada) {
@@ -258,8 +271,7 @@ public class Juego {
 		} else {
 			
 			for (Element siguiente : tablero.values()) {
-				if (siguiente instanceof Jugador) {
-					Jugador jugador = ((Jugador) siguiente);
+				if (siguiente instanceof Jugador jugador) {
 					if (jugador.getDinero() == Constantes.NUM_DINERO) {
 						resultado.append(jugador);
 					}
@@ -269,7 +281,6 @@ public class Juego {
 		return resultado.toString();
 	}
 
-	
 	public String getNombreJugadorQueJuega() {
 		StringBuilder sb = new StringBuilder();
 		Coordenada coor = this.coordenadaJugadores.get(jugadorJuega);
@@ -342,9 +353,7 @@ public class Juego {
 					resul = "El enemigo " + enemigo.getNombre() + " gana. El jugador muere";
 					this.eliminarJugador(this.coordenadaJugadores.get(jugadorJuega));
 					dado = 0;
-					// Decrementamos en uno el jugador, para que no se salte al siguiente
-					// ya que al borrarlo el siguiente apunta al siguiente, y al incrementarlo
-					// se le salta
+					
 					this.jugadorJuega--;
 					break;
 				}
@@ -386,4 +395,6 @@ public class Juego {
 
 		return resul;
 	}
+
+	
 }
