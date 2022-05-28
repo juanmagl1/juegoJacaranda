@@ -135,11 +135,10 @@ public class Juego {
 	public String imprimeNombreJugadores() {
 		int contador = 1;
 		StringBuilder resultado = new StringBuilder();
-		int i=0;
 		for (Coordenada coordenada : this.coordenadaJugadores) {
 		Jugador jugadores = (Jugador) tablero.get(coordenada);
-		resultado.append("El jugador " + i + " es un " + jugadores.getNombre() + "\n");
-			i++;
+		resultado.append("El jugador " + contador + " es un " + jugadores.getNombre() + "\n");
+			contador++;
 		}
 		return resultado.toString();
 	}
