@@ -21,15 +21,15 @@ public class JuegoTest {
 		//Me creo el array de jugadores, para despues con un for ir metiendolos en el array
 		//Me creo un nuevo juego con el array de jugadores
 		PlayerType[] jugadores = new PlayerType[Constantes.NUM_JUGADORES];
-		jugadores[0]=PlayerType.GUERRERO;
-		jugadores[1]=PlayerType.ELFO;
-		jugadores[2]=PlayerType.OGRO;
-		jugadores[3]=PlayerType.MAGO;
+		jugadores[0]=PlayerType.ELFO;
+		jugadores[1]=PlayerType.GUERRERO;
+		jugadores[2]=PlayerType.MAGO;
+		jugadores[3]=PlayerType.OGRO;
 		Juego j1 = new Juego(jugadores);
-		assertEquals("El jugador 1 es un GUERRERO\n"
-				+ "El jugador 2 es un ELFO\n"
-				+ "El jugador 3 es un OGRO\n"
-				+ "El jugador 4 es un MAGO\n", j1.imprimeNombreJugadores());
+		assertEquals("El jugador 1 es un ELFO\n"
+				+ "El jugador 2 es un GUERRERO\n"
+				+ "El jugador 3 es un MAGO\n"
+				+ "El jugador 4 es un OGRO\n", j1.imprimeNombreJugadores());
 	}
 	@Test
 	public void setDado() {
@@ -58,7 +58,7 @@ public class JuegoTest {
 		
 		Juego juego = new Juego(jugadores);
 		juego.proximoJugador();
-		assertEquals("MAGO", juego.getNombreJugadorQueJuega());
+		assertEquals("ELFO", juego.getNombreJugadorQueJuega());
 		
 	}
 	@Test 

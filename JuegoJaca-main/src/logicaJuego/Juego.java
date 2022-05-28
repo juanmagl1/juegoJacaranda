@@ -17,7 +17,7 @@ public class Juego {
 		tablero = new HashMap<>();
 		coordenadaJugadores = new ArrayList<>();
 		crearTablero();
-		for (int i = 0; i < Constantes.NUM_JUGADORES; i++) {
+		for (int i = 0; i < personaje.length; i++) {
 			crearJugador(personaje[i]);
 		}
 	}
@@ -111,19 +111,20 @@ public class Juego {
 	
 	
 	public boolean isTerminado() {
-		boolean terminar = false;
-		boolean dinero = false;
-		for (Element elemento : this.tablero.values()) {
-			if (elemento instanceof Jugador) {
-				if (((Jugador) elemento).getDinero() == Constantes.DINERO) {
-					dinero = true;
+		boolean resul = false;
+		boolean tieneMaxDinero = false;
+		for (Element e : tablero.values()) {
+			if (e instanceof Jugador) {
+				if (((Jugador) e).getDinero() == Constantes.DINERO) {
+					tieneMaxDinero = true;
 				}
 			}
 		}
-	if (this.coordenadaJugadores.size() == 1 || dinero) {
-		terminar = true;
+		if (coordenadaJugadores.size() == 1 || tieneMaxDinero) {
+			resul = true;
 		}
-		return terminar;
+
+		return resul;
 	}
 	
 	private void eliminarJugador(Coordenada coordenada) {
@@ -133,14 +134,17 @@ public class Juego {
 
 	
 	public String imprimeNombreJugadores() {
-		int contador = 1;
-		StringBuilder resultado = new StringBuilder();
-		for (Coordenada coordenada : this.coordenadaJugadores) {
-		Jugador jugadores = (Jugador) tablero.get(coordenada);
-		resultado.append("El jugador " + contador + " es un " + jugadores.getNombre() + "\n");
-			contador++;
+		StringBuilder resul = new StringBuilder();
+		int cont = 1;
+		for (Coordenada c : coordenadaJugadores) {
+			// Recorro las coordenadas de jugadores y con esa coordenada
+			// miro en el tablero para sacar el jugador y con el jugador ya
+			// saco su nombre
+			Jugador aux = (Jugador) tablero.get(c);
+			resul.append("El jugador " + cont + " es un " + aux.getPlayer() + "\n");
+			cont++;
 		}
-		return resultado.toString();
+		return resul.toString();
 	}
 	
 	
