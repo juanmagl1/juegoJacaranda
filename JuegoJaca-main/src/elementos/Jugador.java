@@ -90,7 +90,7 @@ public class Jugador extends Element {
 
 	public String resumen() {
 		return "Nombre: " + this.getNombre() + " Gemas: " + this.getGemas() + " Dinero: " + this.getDinero()
-				+ "Pociones: " + this.getPociones();
+				+ " Pociones: " + this.getPociones();
 	}
 
 	public PlayerType getPlayer() {
